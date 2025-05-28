@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
     printf("Please include the required files");
     return 1;
   }
+  printf("|%-14s | %-24s | %10s | %9s | %14s|\n", "Algorithm", "File", "Input Size", "Time(s)", "Memory(b)");
   for (int fileIndex = 1; fileIndex < argc; fileIndex++)
   {
     char *fileName = argv[fileIndex];
@@ -36,8 +37,10 @@ int main(int argc, char *argv[])
     }
     int dataLength = 100000;
     int maxValue = 0;
+    long int memoryUsed = 0;
 
     int *dataArray = (int *)malloc(sizeof(int) * dataLength);
+    memoryUsed += sizeof(int) * dataLength;
     for (int i = 0; i < dataLength; i++)
     {
       fscanf(fileRead, "%d\n", &(dataArray[i]));
@@ -46,13 +49,12 @@ int main(int argc, char *argv[])
     }
     fclose(fileRead);
     clock_t start_time = clock();
-    printf("Sorting started for %s...\n", fileName);
     insertionSort(dataLength, dataArray);
     clock_t end_time = clock();
 
     double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 
-    printf("Insert sort for %s finished in %f seconds.\n", fileName, elapsed_time);
+    printf("|%-14s | %-24s | %10d | %9.5f | %14ld|\n", "Insert Sort", argv[fileIndex], dataLength, elapsed_time, memoryUsed);
   }
 
   return 0;
