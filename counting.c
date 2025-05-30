@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include "sort.h"
+
 int main(int argc, char *argv[])
 {
   if (argc < 2)
@@ -25,6 +26,7 @@ int main(int argc, char *argv[])
 
     int *dataArray = (int *)malloc(sizeof(int) * dataLength);
     memoryUsed += sizeof(int) * dataLength;
+
     for (int i = 0; i < dataLength; i++)
     {
       fscanf(fileRead, "%d\n", &(dataArray[i]));
@@ -32,13 +34,14 @@ int main(int argc, char *argv[])
         maxValue = dataArray[i];
     }
     fclose(fileRead);
+
     clock_t start_time = clock();
-    insertionSort(dataLength, dataArray);
+    countSort(maxValue, dataLength, dataArray, &memoryUsed);
     clock_t end_time = clock();
 
     double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 
-    printf("|%-14s | %-24s | %10d | %9.5f | %14ld|\n", "Insert Sort", argv[fileIndex], dataLength, elapsed_time, memoryUsed);
+    printf("|%-14s | %-24s | %10d | %9.5f | %14ld|\n", "Counting Sort", argv[fileIndex], dataLength, elapsed_time, memoryUsed);
   }
 
   return 0;

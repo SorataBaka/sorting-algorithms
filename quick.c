@@ -1,38 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-
-int partition(int *array, int minIndex, int maxIndex)
-{
-  int pivot = array[maxIndex];
-  int i = minIndex - 1;
-  for (int j = minIndex; j <= maxIndex - 1; j++)
-  {
-    if (array[j] < pivot)
-    {
-      i++;
-      int temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-  }
-
-  int temp = array[i + 1];
-  array[i + 1] = array[maxIndex];
-  array[maxIndex] = temp;
-  return i + 1;
-}
-
-void quickSort(int *array, int minIndex, int maxIndex, long int *memoryUsed)
-{
-  if (minIndex < maxIndex)
-  {
-    int pivot = partition(array, minIndex, maxIndex);
-    quickSort(array, minIndex, pivot - 1, memoryUsed);
-    quickSort(array, pivot + 1, maxIndex, memoryUsed);
-  }
-}
-
+#include "sort.h"
 int main(int argc, char *argv[])
 {
   if (argc < 2)

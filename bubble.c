@@ -1,22 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-
-void bubbleSort(int arrayLength, int *array)
-{
-  for (int i = 0; i < arrayLength - 1; i++)
-  {
-    for (int j = i + 1; j < arrayLength; j++)
-    {
-      if (array[j] < array[i])
-      {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-      }
-    }
-  }
-}
+#include "sort.h"
 
 int main(int argc, char *argv[])
 {

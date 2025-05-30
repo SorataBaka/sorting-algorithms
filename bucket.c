@@ -1,24 +1,12 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include "sort.h"
 
 void bucketSort(int maxValue, int arrayLength, int *array, long int *memoryUsed)
 {
   int *buckets = (int *)malloc(sizeof(int) * maxValue);
   *memoryUsed += sizeof(int) * maxValue;
-  for (int i = 0; i < arrayLength; i++)
-  {
-    buckets[array[i] - 1]++;
-  }
-  int index = 0;
-  for (int i = 0; i < maxValue; i++)
-  {
-    while (buckets[i] > 0)
-    {
-      array[index++] = i + 1;
-      buckets[i]--;
-    }
-  }
 }
 
 int main(int argc, char *argv[])
@@ -59,7 +47,7 @@ int main(int argc, char *argv[])
 
     double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 
-    printf("|%-14s | %-24s | %10d | %9.5f | %14ld|\n", "Bucket Sort", argv[fileIndex], dataLength, elapsed_time, memoryUsed);
+    printf("|%-14s | %-24s | %10d | %9.5f | %14ld|\n", "Counting Sort", argv[fileIndex], dataLength, elapsed_time, memoryUsed);
   }
 
   return 0;

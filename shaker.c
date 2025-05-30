@@ -1,45 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-
-void shakerSort(int arrayLength, int *array)
-{
-  int swapped = 1;
-  int direction = 0; // 0 for from left 1 for from right
-  while (swapped)
-  {
-    swapped = 0;
-    if (direction == 0)
-    {
-      for (int i = 0; i < arrayLength - 2; i++)
-      {
-        if (array[i] > array[i + 1])
-        {
-          swapped = 1;
-          int temp = array[i];
-          array[i] = array[i + 1];
-          array[i + 1] = temp;
-        }
-      }
-      direction = 1;
-    }
-    else if (direction == 1)
-    {
-      for (int i = arrayLength - 1; i > 0; i--)
-      {
-        if (array[i] < array[i - 1])
-        {
-          swapped = 1;
-          int temp = array[i - 1];
-          array[i - 1] = array[i];
-          array[i] = temp;
-        }
-      }
-      direction = 0;
-    }
-  }
-}
-
+#include "sort.h"
 int main(int argc, char *argv[])
 {
   if (argc < 2)
