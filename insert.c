@@ -36,6 +36,11 @@ int main(int argc, char *argv[])
     insertionSort(dataLength, dataArray);
     clock_t end_time = clock();
 
+    for (int i = 0; i < dataLength; i++)
+    {
+      printf("%d\n", dataArray[i]);
+    }
+
     double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 
     printf("|%-14s | %-24s | %10d | %9.5f | %14ld|\n", "Insert Sort", argv[fileIndex], dataLength, elapsed_time, memoryUsed);

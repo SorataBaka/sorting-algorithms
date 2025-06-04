@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.4.4)  30 MAY 2025 16:51
+This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.4.4)  30 MAY 2025 22:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -203,8 +203,16 @@ File: ./assets/quick3.eps Graphic file (type eps)
  <./assets/quick3.eps>
 
 [7]
+File: ./assets/bucket2.eps Graphic file (type eps)
+ <./assets/bucket2.eps>
+File: ./assets/bucket3.eps Graphic file (type eps)
+ <./assets/bucket3.eps>
 
-[8] (./sorting.aux)
+[8]
+File: ./assets/bucket4.eps Graphic file (type eps)
+ <./assets/bucket4.eps>
+
+[9] (./sorting.aux)
  ***********
 pLaTeX2e <2023-02-14>+1, based on
 LaTeX2e <2024-11-01> patch level 2
@@ -212,12 +220,12 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 1915 strings out of 473836
- 29697 string characters out of 5731190
+ 1939 strings out of 473836
+ 30246 string characters out of 5731190
  425557 words of memory out of 5000000
- 25177 multiletter control sequences out of 15000+600000
+ 25198 multiletter control sequences out of 15000+600000
  570385 words of font info for 82 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  57i,9n,65p,812b,379s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on sorting.dvi (8 pages, 17676 bytes).
+Output written on sorting.dvi (9 pages, 19572 bytes).
