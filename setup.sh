@@ -24,4 +24,4 @@ else
     echo "# Added by your-tool setup script" >> "$SHELL_RC"
     echo "export PATH=\"$BIN_PATH:\$PATH\"" >> "$SHELL_RC"
     echo "Done. Please restart your terminal or run: source $SHELL_RC"
-fi
+fi  

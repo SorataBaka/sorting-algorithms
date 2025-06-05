@@ -3,12 +3,6 @@
 #include <stdlib.h>
 #include "sort.h"
 
-void bucketSort(int maxValue, int arrayLength, int *array, long int *memoryUsed)
-{
-  int *buckets = (int *)malloc(sizeof(int) * maxValue);
-  *memoryUsed += sizeof(int) * maxValue;
-}
-
 int main(int argc, char *argv[])
 {
   if (argc < 2)
@@ -42,7 +36,7 @@ int main(int argc, char *argv[])
     fclose(fileRead);
 
     clock_t start_time = clock();
-    bucketSort(maxValue, dataLength, dataArray, &memoryUsed);
+    bucketSort(maxValue, 200, dataLength, dataArray, &memoryUsed);
     clock_t end_time = clock();
 
     double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;

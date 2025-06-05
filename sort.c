@@ -53,7 +53,7 @@ void bucketSort(int maxValue, int bucket_count, int arrayLength, int *array, lon
 }
 void bubbleSort(int arrayLength, int *array)
 {
-  for (int i = 0; i < arrayLength - 1; i++)
+  for (int i = 0; i < arrayLength; i++)
   {
     for (int j = i + 1; j < arrayLength; j++)
     {

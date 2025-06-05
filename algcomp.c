@@ -15,6 +15,15 @@ typedef enum SORTING_ALG
   ALL
 } SORTING_ALG;
 
+typedef enum SORT_RESULT
+{
+  FILE_NAME,
+  METHOD,
+  LENGTH,
+  TIME,
+  MEMORY
+} SORT_RESULT;
+
 typedef struct
 {
   char **files;
@@ -23,35 +32,71 @@ typedef struct
   char outFile[256];
   int has_outFile;
   SORTING_ALG algorithm;
+  SORT_RESULT sortresult;
 } Param;
 
 typedef struct
 {
-  char *fileName;
-  char *sortingMethod;
+  char fileName[200];
+  char sortingMethod[20];
   int dataLength;
   double elapsed_time;
   int memoryUsed;
 
 } Result;
-
-int validateArray(Param config, int *rawArray, int length)
+int cmpFileName(const void *a, const void *b)
 {
-  for (int i = 0; i < length - 1; i++)
-  {
-    if (config.is_reversed == 0 && rawArray[i] > rawArray[i + 1])
-    {
-      printf("%d %d\n", rawArray[i], rawArray[i + 1]);
-      return 0;
-    }
-    else if (config.is_reversed == 1 && rawArray[i] < rawArray[i + 1])
-    {
-      printf("%d %d\n", rawArray[i], rawArray[i + 1]);
-      return 0;
-    }
-  }
-  return 1;
+  return strcmp(((Result *)a)->fileName, ((Result *)b)->fileName);
 }
+
+int cmpMethod(const void *a, const void *b)
+{
+  return strcmp(((Result *)a)->sortingMethod, ((Result *)b)->sortingMethod);
+}
+
+int cmpLength(const void *a, const void *b)
+{
+  int la = ((Result *)a)->dataLength;
+  int lb = ((Result *)b)->dataLength;
+  return (la > lb) - (la < lb);
+}
+
+int cmpTime(const void *a, const void *b)
+{
+  double ta = ((Result *)a)->elapsed_time;
+  double tb = ((Result *)b)->elapsed_time;
+  return (ta > tb) - (ta < tb);
+}
+
+int cmpMemory(const void *a, const void *b)
+{
+  int ma = ((Result *)a)->memoryUsed;
+  int mb = ((Result *)b)->memoryUsed;
+  return (ma > mb) - (ma < mb);
+}
+
+void sortResults(Result *results, int count, SORT_RESULT key)
+{
+  switch (key)
+  {
+  case FILE_NAME:
+    qsort(results, count, sizeof(Result), cmpFileName);
+    break;
+  case METHOD:
+    qsort(results, count, sizeof(Result), cmpMethod);
+    break;
+  case LENGTH:
+    qsort(results, count, sizeof(Result), cmpLength);
+    break;
+  case TIME:
+    qsort(results, count, sizeof(Result), cmpTime);
+    break;
+  case MEMORY:
+    qsort(results, count, sizeof(Result), cmpMemory);
+    break;
+  }
+}
+
 int getFileLength(FILE *fileRead)
 {
   int lines = 0;
@@ -64,26 +109,26 @@ int *readFile(FILE *fileRead, int dataLength, long int *memory)
 {
   if (fileRead == NULL)
     return NULL;
+
+  rewind(fileRead);
   int *array = (int *)malloc(sizeof(int) * dataLength);
   *memory += sizeof(int) * dataLength;
 
   for (int i = 0; i < dataLength; i++)
   {
-    fscanf(fileRead, "%d\n", &(array[i]));
+    fscanf(fileRead, "%d", &(array[i]));
   }
-
-  fclose(fileRead);
   return array;
 }
 void printHelp(const char *programName)
 {
   printf(
-      "Usage: %s [file1 file2 ...] [--reversed] [--out <output_file>] [--alg <algorithm>]\n\n"
+      "Usage: %s [file1 file2 ...] [--out <output_file>] [--alg <algorithm>]\n\n"
       "Positional arguments:\n"
       "  file1 file2 ...        One or more input files to process\n\n"
       "Options:\n"
-      "  --reversed             Process files in reversed order\n"
       "  --out <output_file>    Write output to <output_file>\n"
+      "  --sortby <field>       Sort result table by one of: file, method, length, time, memory\n"
       "  --alg <algorithm>      Choose sorting algorithm to use\n"
       "                         Available algorithms:\n"
       "                           all     - Run all algorithms\n"
@@ -94,13 +139,21 @@ void printHelp(const char *programName)
       "                           quick   - Quick Sort\n"
       "                           shaker  - Shaker Sort\n\n"
       "Examples:\n"
-      "  %s input1.txt input2.txt --reversed\n"
       "  %s input.txt --out result.txt\n"
       "  %s input.txt --alg quick\n"
       "  %s input.txt --alg all --out sorted.txt\n",
-      programName, programName, programName, programName, programName);
+      programName, programName, programName, programName);
 }
-
+int findMaxValue(int *array, int length)
+{
+  int max = array[0];
+  for (int i = 0; i < length; i++)
+  {
+    if (array[i] > max)
+      max = array[i];
+  }
+  return max;
+}
 Param parseArguments(int argc, char *argv[])
 {
   Param params = {0};
@@ -110,6 +163,7 @@ Param parseArguments(int argc, char *argv[])
   params.has_outFile = 0;
   params.outFile[0] = '\0';
   params.algorithm = ALL;
+  params.sortresult = FILE_NAME;
 
   int i = 1;
   // First parse positional arguments (files)
@@ -121,12 +175,7 @@ Param parseArguments(int argc, char *argv[])
   // Now parse options
   while (i < argc)
   {
-    if (strcmp(argv[i], "--reversed") == 0)
-    {
-      params.is_reversed = 1;
-      i++;
-    }
-    else if (strcmp(argv[i], "--alg") == 0)
+    if (strcmp(argv[i], "--alg") == 0)
     {
       if (i + 1 >= argc)
       {
@@ -172,6 +221,34 @@ Param parseArguments(int argc, char *argv[])
       }
       i++;
     }
+    else if (strcmp(argv[i], "--sortresult") == 0)
+    {
+      if (i + 1 >= argc)
+      {
+        fprintf(stderr, "Error: --sortresult requires a valid algorithm\n");
+        exit(EXIT_FAILURE);
+      }
+      char sortKey[20];
+      strcpy(sortKey, argv[++i]);
+
+      if (strcmp(sortKey, "file") == 0)
+        params.sortresult = FILE_NAME;
+      else if (strcmp(sortKey, "method") == 0)
+        params.sortresult = METHOD;
+      else if (strcmp(sortKey, "length") == 0)
+        params.sortresult = LENGTH;
+      else if (strcmp(sortKey, "time") == 0)
+        params.sortresult = TIME;
+      else if (strcmp(sortKey, "memory") == 0)
+        params.sortresult = MEMORY;
+      else
+      {
+        fprintf(stderr, "Unknown sort key: %s\n", sortKey);
+        printHelp(argv[0]);
+        exit(EXIT_FAILURE);
+      }
+      i++;
+    }
     else if (strcmp(argv[i], "--out") == 0)
     {
       if (i + 1 >= argc)
@@ -193,7 +270,29 @@ Param parseArguments(int argc, char *argv[])
 
   return params;
 }
+void printResultsTable(Result results[], int count)
+{
+  // Print header
+  printf(
+      "+----------------------+----------------+-------------+---------------+-------------+\n"
+      "| File Name            | Sort Method    | Data Length | Time (sec)    | Memory (KB) |\n"
+      "+----------------------+----------------+-------------+---------------+-------------+\n");
 
+  // Print each result row
+  for (int i = 0; i < count; ++i)
+  {
+    printf("| %-20s | %-14s | %-11d | %-13.6f | %-11.2d |\n",
+           results[i].fileName,
+           results[i].sortingMethod,
+           results[i].dataLength,
+           results[i].elapsed_time,
+           results[i].memoryUsed);
+  }
+
+  // Print footer
+  printf(
+      "+----------------------+----------------+-------------+---------------+-------------+\n");
+}
 int main(int argc, char *argv[])
 {
   if (argc < 2)
@@ -210,6 +309,7 @@ int main(int argc, char *argv[])
   else
     resultCount = params.file_count;
   Result *resultArray = (Result *)malloc(sizeof(Result) * resultCount);
+
   int resultIndex = 0;
 
   for (int fileIndex = 0; fileIndex < params.file_count; fileIndex++)
@@ -224,27 +324,103 @@ int main(int argc, char *argv[])
     long usedMemory = 0;
     int *dataArray = readFile(fileRead, fileLength, &usedMemory);
     int *clonedArray = (int *)malloc(sizeof(int) * fileLength);
-    memcpy(clonedArray, dataArray, fileLength * sizeof(int));
-
-    if (params.algorithm == ALL || params.algorithm == BUBBLE)
+    for (SORTING_ALG alg = BUBBLE; alg <= SHAKER; ++alg)
     {
-      clock_t start_time = clock();
-      bubbleSort(fileLength, clonedArray);
-      clock_t end_time = clock();
-      if (validateArray(params, clonedArray, fileLength) == 0)
+      if (params.algorithm != ALL && params.algorithm != alg)
+        continue;
+      long tempMemory = 0;
+      memcpy(clonedArray, dataArray, fileLength * sizeof(int));
+      clock_t start_time, end_time;
+      double elapsed_time = 0;
+      switch (alg)
       {
-        printf("Failed to sort file\n");
-        exit(EXIT_FAILURE);
+      case BUBBLE:
+        printf("Executing Bubble Sort on file %s\n", params.files[fileIndex]);
+        start_time = clock();
+        bubbleSort(fileLength, clonedArray);
+        end_time = clock();
+        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
+        break;
+
+      case BUCKET:
+        printf("Executing Bucket Sort on file %s\n", params.files[fileIndex]);
+        start_time = clock();
+        bucketSort(findMaxValue(clonedArray, fileLength), /*bucket_count=*/2000, fileLength, clonedArray, &tempMemory);
+        end_time = clock();
+        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+        break;
+
+      case COUNT:
+        printf("Executing Count Sort on file %s\n", params.files[fileIndex]);
+        start_time = clock();
+        countSort(findMaxValue(clonedArray, fileLength), fileLength, clonedArray, &tempMemory);
+        end_time = clock();
+        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+        break;
+
+      case INSERT:
+        printf("Executing Insert Sort on file %s\n", params.files[fileIndex]);
+        start_time = clock();
+        insertionSort(fileLength, clonedArray);
+        end_time = clock();
+        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+        break;
+
+      case QUICK:
+        printf("Executing Quick Sort on file %s\n", params.files[fileIndex]);
+        start_time = clock();
+        quickSort(clonedArray, 0, fileLength - 1, &tempMemory);
+        end_time = clock();
+        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+        break;
+
+      case SHAKER:
+        printf("Executing Shaker Sort on file %s\n", params.files[fileIndex]);
+        start_time = clock();
+        shakerSort(fileLength, clonedArray);
+        end_time = clock();
+        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+        break;
+      case ALL:
+        break;
       }
-      double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 
       strcpy(resultArray[resultIndex].fileName, params.files[fileIndex]);
-      strcpy(resultArray[resultIndex].sortingMethod, "Bubble Sort");
+
+      switch (alg)
+      {
+      case BUBBLE:
+        strcpy(resultArray[resultIndex].sortingMethod, "Bubble Sort");
+        break;
+      case BUCKET:
+        strcpy(resultArray[resultIndex].sortingMethod, "Bucket Sort");
+        break;
+      case COUNT:
+        strcpy(resultArray[resultIndex].sortingMethod, "Counting Sort");
+        break;
+      case INSERT:
+        strcpy(resultArray[resultIndex].sortingMethod, "Insertion Sort");
+        break;
+      case QUICK:
+        strcpy(resultArray[resultIndex].sortingMethod, "Quick Sort");
+        break;
+      case SHAKER:
+        strcpy(resultArray[resultIndex].sortingMethod, "Shaker Sort");
+        break;
+      case ALL:
+        break;
+      }
       resultArray[resultIndex].dataLength = fileLength;
       resultArray[resultIndex].elapsed_time = elapsed_time;
-      resultArray[resultIndex].memoryUsed = usedMemory;
+      resultArray[resultIndex].memoryUsed = (int)(usedMemory + tempMemory);
       resultIndex++;
     }
+
+    free(clonedArray);
   }
+  sortResults(resultArray, resultCount, params.sortresult);
+  printResultsTable(resultArray, resultIndex);
+
   return 0;
 }
