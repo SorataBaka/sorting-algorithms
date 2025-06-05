@@ -127,7 +127,7 @@ void printHelp(const char *programName)
       "Positional arguments:\n"
       "  file1 file2 ...        One or more input files to process\n\n"
       "Options:\n"
-      "  --out <output_file>    Write output to <output_file>\n"
+      "  --out <output_file>    Write output to <algorithm>-<output_file>\n"
       "  --sortby <field>       Sort result table by one of: file, method, length, time, memory\n"
       "  --alg <algorithm>      Choose sorting algorithm to use\n"
       "                         Available algorithms:\n"
@@ -293,6 +293,49 @@ void printResultsTable(Result results[], int count)
   printf(
       "+----------------------+----------------+-------------+---------------+-------------+\n");
 }
+const char *getAlgName(SORTING_ALG alg)
+{
+  switch (alg)
+  {
+  case BUBBLE:
+    return "bubble";
+  case BUCKET:
+    return "bucket";
+  case COUNT:
+    return "count";
+  case INSERT:
+    return "insert";
+  case QUICK:
+    return "quick";
+  case SHAKER:
+    return "shaker";
+  case ALL:
+    return "all";
+  default:
+    return "unknown";
+  }
+}
+void printOut(SORTING_ALG alg, char *fileName, int *dataArray, int length)
+{
+  char outputFileName[300];
+  const char *algName = getAlgName(alg);
+
+  snprintf(outputFileName, sizeof(outputFileName), "%s-%s", algName, fileName);
+
+  FILE *outFile = fopen(outputFileName, "w");
+  if (!outFile)
+  {
+    perror("Failed to open output file");
+    return;
+  }
+
+  for (int i = 0; i < length; i++)
+  {
+    fprintf(outFile, "%d\n", dataArray[i]);
+  }
+
+  fclose(outFile);
+}
 int main(int argc, char *argv[])
 {
   if (argc < 2)
@@ -415,6 +458,10 @@ int main(int argc, char *argv[])
       resultArray[resultIndex].elapsed_time = elapsed_time;
       resultArray[resultIndex].memoryUsed = (int)(usedMemory + tempMemory);
       resultIndex++;
+      if (params.has_outFile)
+      {
+        printOut(alg, params.outFile, clonedArray, fileLength);
+      }
     }
 
     free(clonedArray);
