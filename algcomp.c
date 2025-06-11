@@ -31,6 +31,8 @@ typedef struct
   int is_reversed;
   char outFile[256];
   int has_outFile;
+  int has_limit;
+  int limit;
   SORTING_ALG algorithm;
   SORT_RESULT sortresult;
 } Param;
@@ -123,25 +125,31 @@ int *readFile(FILE *fileRead, int dataLength, long int *memory)
 void printHelp(const char *programName)
 {
   printf(
-      "Usage: %s [file1 file2 ...] [--out <output_file>] [--alg <algorithm>]\n\n"
+      "Usage: %s [file1 file2 ...] [--out <output_file>] [--alg <algorithm>] [--sortresult <field>] [--limit <N>]\n\n"
       "Positional arguments:\n"
-      "  file1 file2 ...        One or more input files to process\n\n"
+      "  file1 file2 ...         One or more input files to process\n\n"
       "Options:\n"
-      "  --out <output_file>    Write output to <algorithm>-<output_file>\n"
-      "  --sortby <field>       Sort result table by one of: file, method, length, time, memory\n"
-      "  --alg <algorithm>      Choose sorting algorithm to use\n"
-      "                         Available algorithms:\n"
-      "                           all     - Run all algorithms\n"
-      "                           bubble  - Bubble Sort\n"
-      "                           bucket  - Bucket Sort\n"
-      "                           count   - Counting Sort\n"
-      "                           insert  - Insertion Sort\n"
-      "                           quick   - Quick Sort\n"
-      "                           shaker  - Shaker Sort\n\n"
+      "  --out <output_file>     Write sorted output to a file named <algorithm>-<output_file>\n"
+      "  --alg <algorithm>       Choose sorting algorithm to use. Available algorithms:\n"
+      "                            all      Run all algorithms\n"
+      "                            bubble   Bubble Sort\n"
+      "                            bucket   Bucket Sort\n"
+      "                            count    Counting Sort\n"
+      "                            insert   Insertion Sort\n"
+      "                            quick    Quick Sort\n"
+      "                            shaker   Shaker Sort\n"
+      "  --sortresult <field>    Sort result table by one of the following:\n"
+      "                            file     Sort by file name\n"
+      "                            method   Sort by sorting method\n"
+      "                            length   Sort by data length\n"
+      "                            time     Sort by execution time\n"
+      "                            memory   Sort by memory usage\n"
+      "  --limit <N>             Only read at most N numbers from each input file\n"
+      "  --help                  Show this help message and exit\n\n"
       "Examples:\n"
       "  %s input.txt --out result.txt\n"
-      "  %s input.txt --alg quick\n"
-      "  %s input.txt --alg all --out sorted.txt\n",
+      "  %s input1.txt input2.txt --alg quick\n"
+      "  %s input.txt --alg all --out sorted.txt --sortresult time --limit 1000\n",
       programName, programName, programName, programName);
 }
 int findMaxValue(int *array, int length)
@@ -225,7 +233,7 @@ Param parseArguments(int argc, char *argv[])
     {
       if (i + 1 >= argc)
       {
-        fprintf(stderr, "Error: --sortresult requires a valid algorithm\n");
+        fprintf(stderr, "Error: --sortresult requires a valid key\n");
         exit(EXIT_FAILURE);
       }
       char sortKey[20];
@@ -259,6 +267,23 @@ Param parseArguments(int argc, char *argv[])
       strncpy(params.outFile, argv[++i], sizeof(params.outFile) - 1);
       params.outFile[sizeof(params.outFile) - 1] = '\0';
       params.has_outFile = 1;
+      i++;
+    }
+    else if (strcmp(argv[i], "--help") == 0)
+    {
+      printHelp(argv[0]);
+      exit(EXIT_SUCCESS);
+      i++;
+    }
+    else if (strcmp(argv[i], "--limit") == 0)
+    {
+      if (i + 1 >= argc)
+      {
+        fprintf(stderr, "Error: --limit requires a number\n");
+        exit(EXIT_FAILURE);
+      }
+      params.has_limit = 1;
+      params.limit = atoi(argv[++i]);
       i++;
     }
     else
@@ -363,7 +388,9 @@ int main(int argc, char *argv[])
       printf("Unable to open file.\n");
       return EXIT_FAILURE;
     }
-    int fileLength = getFileLength(fileRead);
+    int readlen = getFileLength(fileRead);
+    int fileLength = !params.has_limit ? readlen : params.limit > readlen ? readlen
+                                                                          : params.limit;
     long usedMemory = 0;
     int *dataArray = readFile(fileRead, fileLength, &usedMemory);
     int *clonedArray = (int *)malloc(sizeof(int) * fileLength);
