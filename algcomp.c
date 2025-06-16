@@ -33,6 +33,8 @@ typedef struct
   int has_outFile;
   int has_limit;
   int limit;
+  int repeat;
+  int has_repeat;
   SORTING_ALG algorithm;
   SORT_RESULT sortresult;
 } Param;
@@ -286,6 +288,17 @@ Param parseArguments(int argc, char *argv[])
       params.limit = atoi(argv[++i]);
       i++;
     }
+    else if (strcmp(argv[i], "--repeat") == 0)
+    {
+      if (i + 1 >= argc)
+      {
+        fprintf(stderr, "Error: --repeat requires a number\n");
+        exit(EXIT_FAILURE);
+      }
+      params.has_repeat = 1;
+      params.repeat = atoi(argv[++i]);
+      i++;
+    }
     else
     {
       fprintf(stderr, "Unknown option: %s\n", argv[i]);
@@ -394,101 +407,110 @@ int main(int argc, char *argv[])
     long usedMemory = 0;
     int *dataArray = readFile(fileRead, fileLength, &usedMemory);
     int *clonedArray = (int *)malloc(sizeof(int) * fileLength);
+
     for (SORTING_ALG alg = BUBBLE; alg <= SHAKER; ++alg)
     {
       if (params.algorithm != ALL && params.algorithm != alg)
         continue;
+      double elapsedTimeAverage = 0;
+      long usedMemoryAverage = 0;
       long tempMemory = 0;
-      memcpy(clonedArray, dataArray, fileLength * sizeof(int));
-      clock_t start_time, end_time;
-      double elapsed_time = 0;
-      switch (alg)
+      for (int i = 1; i <= (params.has_repeat ? params.repeat : 1); i++)
       {
-      case BUBBLE:
-        printf("Executing Bubble Sort on file %s\n", params.files[fileIndex]);
-        start_time = clock();
-        bubbleSort(fileLength, clonedArray);
-        end_time = clock();
-        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+        tempMemory = 0;
+        memcpy(clonedArray, dataArray, fileLength * sizeof(int));
+        clock_t start_time, end_time;
+        double elapsed_time = 0;
+        switch (alg)
+        {
+        case BUBBLE:
+          printf("Executing Bubble Sort on file %s\n", params.files[fileIndex]);
+          start_time = clock();
+          bubbleSort(fileLength, clonedArray);
+          end_time = clock();
+          elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 
-        break;
+          break;
 
-      case BUCKET:
-        printf("Executing Bucket Sort on file %s\n", params.files[fileIndex]);
-        start_time = clock();
-        bucketSort(findMaxValue(clonedArray, fileLength), /*bucket_count=*/2000, fileLength, clonedArray, &tempMemory);
-        end_time = clock();
-        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-        break;
+        case BUCKET:
+          printf("Executing Bucket Sort on file %s\n", params.files[fileIndex]);
+          start_time = clock();
+          bucketSort(findMaxValue(clonedArray, fileLength), /*bucket_count=*/5000, fileLength, clonedArray, &tempMemory);
+          end_time = clock();
+          elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+          break;
 
-      case COUNT:
-        printf("Executing Count Sort on file %s\n", params.files[fileIndex]);
-        start_time = clock();
-        countSort(findMaxValue(clonedArray, fileLength), fileLength, clonedArray, &tempMemory);
-        end_time = clock();
-        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-        break;
+        case COUNT:
+          printf("Executing Count Sort on file %s\n", params.files[fileIndex]);
+          start_time = clock();
+          countSort(findMaxValue(clonedArray, fileLength), fileLength, clonedArray, &tempMemory);
+          end_time = clock();
+          elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+          break;
 
-      case INSERT:
-        printf("Executing Insert Sort on file %s\n", params.files[fileIndex]);
-        start_time = clock();
-        insertionSort(fileLength, clonedArray);
-        end_time = clock();
-        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-        break;
+        case INSERT:
+          printf("Executing Insert Sort on file %s\n", params.files[fileIndex]);
+          start_time = clock();
+          insertionSort(fileLength, clonedArray);
+          end_time = clock();
+          elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+          break;
 
-      case QUICK:
-        printf("Executing Quick Sort on file %s\n", params.files[fileIndex]);
-        start_time = clock();
-        quickSort(clonedArray, 0, fileLength - 1, &tempMemory);
-        end_time = clock();
-        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-        break;
+        case QUICK:
+          printf("Executing Quick Sort on file %s\n", params.files[fileIndex]);
+          start_time = clock();
+          quickSort(clonedArray, 0, fileLength - 1, &tempMemory);
+          end_time = clock();
+          elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+          break;
 
-      case SHAKER:
-        printf("Executing Shaker Sort on file %s\n", params.files[fileIndex]);
-        start_time = clock();
-        shakerSort(fileLength, clonedArray);
-        end_time = clock();
-        elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-        break;
-      case ALL:
-        break;
-      }
+        case SHAKER:
+          printf("Executing Shaker Sort on file %s\n", params.files[fileIndex]);
+          start_time = clock();
+          shakerSort(fileLength, clonedArray);
+          end_time = clock();
+          elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+          break;
+        case ALL:
+          break;
+        }
 
-      strcpy(resultArray[resultIndex].fileName, params.files[fileIndex]);
+        strcpy(resultArray[resultIndex].fileName, params.files[fileIndex]);
 
-      switch (alg)
-      {
-      case BUBBLE:
-        strcpy(resultArray[resultIndex].sortingMethod, "Bubble Sort");
-        break;
-      case BUCKET:
-        strcpy(resultArray[resultIndex].sortingMethod, "Bucket Sort");
-        break;
-      case COUNT:
-        strcpy(resultArray[resultIndex].sortingMethod, "Counting Sort");
-        break;
-      case INSERT:
-        strcpy(resultArray[resultIndex].sortingMethod, "Insertion Sort");
-        break;
-      case QUICK:
-        strcpy(resultArray[resultIndex].sortingMethod, "Quick Sort");
-        break;
-      case SHAKER:
-        strcpy(resultArray[resultIndex].sortingMethod, "Shaker Sort");
-        break;
-      case ALL:
-        break;
+        switch (alg)
+        {
+        case BUBBLE:
+          strcpy(resultArray[resultIndex].sortingMethod, "Bubble Sort");
+          break;
+        case BUCKET:
+          strcpy(resultArray[resultIndex].sortingMethod, "Bucket Sort");
+          break;
+        case COUNT:
+          strcpy(resultArray[resultIndex].sortingMethod, "Counting Sort");
+          break;
+        case INSERT:
+          strcpy(resultArray[resultIndex].sortingMethod, "Insertion Sort");
+          break;
+        case QUICK:
+          strcpy(resultArray[resultIndex].sortingMethod, "Quick Sort");
+          break;
+        case SHAKER:
+          strcpy(resultArray[resultIndex].sortingMethod, "Shaker Sort");
+          break;
+        case ALL:
+          break;
+        }
+        elapsedTimeAverage += elapsed_time;
+        usedMemoryAverage += (usedMemory + tempMemory);
+        if (params.has_outFile)
+        {
+          printOut(alg, params.outFile, clonedArray, fileLength);
+        }
       }
       resultArray[resultIndex].dataLength = fileLength;
-      resultArray[resultIndex].elapsed_time = elapsed_time;
-      resultArray[resultIndex].memoryUsed = (int)(usedMemory + tempMemory);
+      resultArray[resultIndex].elapsed_time = elapsedTimeAverage / (params.has_repeat ? params.repeat : 1);
+      resultArray[resultIndex].memoryUsed = (int)(usedMemoryAverage / (params.has_repeat ? params.repeat : 1));
       resultIndex++;
-      if (params.has_outFile)
-      {
-        printOut(alg, params.outFile, clonedArray, fileLength);
-      }
     }
 
     free(clonedArray);
