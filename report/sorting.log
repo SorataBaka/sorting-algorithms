@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.4.4)  17 JUN 2025 02:21
+This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.4.4)  18 JUN 2025 01:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -155,56 +155,88 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box71
 \@float@everytoks=\toks25
 \@floatcapt=\box72
-) (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count288
+\lst@gtempboxa=\box73
+\lst@token=\toks26
+\lst@length=\count289
+\lst@currlwidth=\dimen179
+\lst@column=\count290
+\lst@pos=\count291
+\lst@lostspace=\dimen180
+\lst@width=\dimen181
+\lst@newlines=\count292
+\lst@lineno=\count293
+\lst@maxwidth=\dimen182
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstpatch.sty
+File: lstpatch.sty 2024/09/23 1.10c (Carsten Heinz)
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
+\c@lstnumber=\count294
+\lst@skipnumbers=\count295
+\lst@framebox=\box74
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2024/09/23 1.10c listings configuration
+))
+Package: listings 2024/09/23 1.10c (Carsten Heinz)
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
 File: l3backend-dvips.def 2024-05-08 L3 backend support: dvips
-\l__pdf_internal_box=\box73
-\l__pdf_backend_content_box=\box74
-\l__pdf_backend_model_box=\box75
-\g__pdf_backend_annotation_int=\count288
-\g__pdf_backend_link_int=\count289
-\g__pdf_backend_link_sf_int=\count290
+\l__pdf_internal_box=\box75
+\l__pdf_backend_content_box=\box76
+\l__pdf_backend_model_box=\box77
+\g__pdf_backend_annotation_int=\count296
+\g__pdf_backend_link_int=\count297
+\g__pdf_backend_link_sf_int=\count298
 ) (./sorting.aux)
 \openout1 = `sorting.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
+Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <17.28> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 15.
-LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <17.28> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 15.
+\c@lstlisting=\count299
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <25> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 20.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <25> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 20.
 
 
 [1
 
 ]
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <17.28> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 32.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <17.28> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 32.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 25.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 25.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 42.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 27.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 44.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 27.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 44.
 
+
+[1]
 
 [2]
 
@@ -213,8 +245,62 @@ File: ./assets/bigo.eps Graphic file (type eps)
  <./assets/bigo.eps>
 
 [4]
+Overfull \hbox (8.07521pt too wide) in paragraph at lines 113--113
+[]  \OT1/cmtt/m/n/12 There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A[] 
+ []
 
-[5] (./sorting.aux)
+
+
+[5]
+Overfull \hbox (8.40886pt too wide) in paragraph at lines 145--154
+ [][][][][] 
+ []
+
+
+
+[6]
+
+[7]
+File: ./assets/bubble1.eps Graphic file (type eps)
+ <./assets/bubble1.eps>
+File: ./assets/bubble2.eps Graphic file (type eps)
+ <./assets/bubble2.eps>
+File: ./assets/bubble3.eps Graphic file (type eps)
+ <./assets/bubble3.eps>
+
+[8]
+File: ./assets/shaker.eps Graphic file (type eps)
+ <./assets/shaker.eps>
+
+[9]
+File: ./assets/insertion1.eps Graphic file (type eps)
+ <./assets/insertion1.eps>
+File: ./assets/insertion2.eps Graphic file (type eps)
+ <./assets/insertion2.eps>
+File: ./assets/bucket1.eps Graphic file (type eps)
+ <./assets/bucket1.eps>
+
+[10]
+File: ./assets/bucket2.eps Graphic file (type eps)
+ <./assets/bucket2.eps>
+File: ./assets/bucket3.eps Graphic file (type eps)
+ <./assets/bucket3.eps>
+
+[11]
+File: ./assets/bucket4.eps Graphic file (type eps)
+ <./assets/bucket4.eps>
+File: ./assets/bucket5.eps Graphic file (type eps)
+ <./assets/bucket5.eps>
+File: ./assets/quick1.eps Graphic file (type eps)
+ <./assets/quick1.eps>
+
+[12]
+File: ./assets/quick3.eps Graphic file (type eps)
+ <./assets/quick3.eps> (./sorting.bbl)
+
+[13]
+
+[14] (./sorting.aux)
  ***********
 pLaTeX2e <2023-02-14>+1, based on
 LaTeX2e <2024-11-01> patch level 2
@@ -222,12 +308,12 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3287 strings out of 473836
- 55997 string characters out of 5731190
- 455164 words of memory out of 5000000
- 26551 multiletter control sequences out of 15000+600000
- 572765 words of font info for 90 fonts, out of 8000000 for 9000
+ 5039 strings out of 473836
+ 80672 string characters out of 5731190
+ 474444 words of memory out of 5000000
+ 28275 multiletter control sequences out of 15000+600000
+ 572368 words of font info for 90 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 67i,12n,77p,1090b,390s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 67i,12n,77p,1090b,1268s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on sorting.dvi (5 pages, 19392 bytes).
+Output written on sorting.dvi (15 pages, 35904 bytes).

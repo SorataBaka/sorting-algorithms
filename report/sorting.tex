@@ -2,16 +2,33 @@
 \usepackage{graphicx}
 \usepackage{titling}
 \usepackage{subcaption}
-\usepackage{caption}
 \usepackage{amsmath}
 \usepackage{float}
+\usepackage{listings}
+
+\renewcommand{\lstlistingname}{コード}
 \graphicspath{{./assets/}}
 \title{様々なソートアルゴリズム}
 \author{クリスティアン　ハルジュノ\thanks{釧路工業高等専門学校情報工学科5年情報21番}}
 \date{\today}
 
 \begin{document}
-\maketitle
+\begin{titlepage}
+  \centering
+  \vspace*{3cm}
+
+  {\fontsize{25pt}{36pt}\selectfont\bfseries ソートプログラム} \\[1cm]  % Main title
+  {\Large 釧路工業高等専門学校情報工学科5年・情報工学実験II} \\[1cm]
+  {\large 氏名：クリスティアン・ハルジュノ} \\[1cm]
+  {\large 出席番号：21} \\[1cm]
+  {\large 学籍番号：234071} \\[5cm]
+
+
+  {\Large 提出日：2025年6月17日} \\
+
+  \vfill
+
+\end{titlepage}
 \section{初めに}
 データに最適なソートアルゴリズムを選択するのは容易ではありません. Big-O記法を用いて理論的にアルゴリズムを比較することは可能ですが, 現実のソートアルゴリズムはそれ以上の要素を含んでいます. \\
 
@@ -69,12 +86,224 @@
 
 \section{実験セットアップ}
 \subsection{ハードウェアと環境}
+ハードウェアとしてはAppleシリコンのプロセッサに基づいて実験を行います。
+\begin{description}
+  \item[機種名] Apple Macbook Pro (M3, 2023年モデル)
+  \item[プロセッサ] Apple M3チップ（8コア：高性能コア4＋高効率コア4）
+  \item[GPU] 10コア統合型GPU
+  \item[メモリ] 16GBユニファイドメモリ
+  \item[ストレージ] 1TB SSD
+  \item[OS] macOS Sequoia 15.5
+  \item[アーキテクチャ] ARM64（Appleシリコン） 
+\end{description}
+また、作成した実験プログラムはC言語で書き、GCCコンパイラでコンパイルされます。
+\begin{verbatim}
+  Apple clang version 17.0.0 (clang-1700.0.13.5)
+  Target: arm64-apple-darwin24.5.0
+  Thread model: posix
+\end{verbatim}
+コンパイルを効率化するため、GCCコンパイラをMakeと同時に利用します。
+\begin{verbatim}
+  GNU Make 3.81
+  Copyright (C) 2006  Free Software Foundation, Inc.
+  This is free software; see the source for copying conditions.
+  There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+  PARTICULAR PURPOSE.
+  This program built for i386-apple-darwin11.3.0
+\end{verbatim}
 \subsection{実験に使用するデータセット}
+各ソート アルゴリズムの制限と動作を適切にテストするために、1 から 50000 までの範囲の 100000 個の整数を含む 7 つのデータセットを用意しました。各データセットの構造は、適用されたソート アルゴリズムの動作を引き出すためにさまざまな方法で配置されています。
+\begin{table}[htbp]
+  \centering
+  \caption{各データファイルの内容}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    ファイル名 & データ数 & データの種類 \\
+    \hline
+    data1.dat & 100,000 & ランダムデータ \\
+    data2.dat & 100,000 & ランダムデータ \\
+    data3.dat & 100,000 & ランダムデータ \\
+    data4.dat & 100,000 & 昇順データ \\
+    data5.dat & 100,000 & 降順データ \\
+    data6.dat & 100,000 & バイトニックデータ \\
+    data7.dat & 100,000 & ジグザグデータ \\
+    \hline
+  \end{tabular}\label{tab:dataset-summary}
+\end{table}
+表2を見ると、データセット1から3にはすべて10万個の整数が含まれており、それらはランダムに並べられていることがわかります。データセット4には、適用されたアルゴリズムの最良のシナリオをシミュレートするために既にソートされたデータが含まれています。データセット5は、ソートアルゴリズムの最悪のシナリオをシミュレートするために、逆順にソートされています。\\
+
+データセット6はバイトニックシーケンスで配置されています。数式\ref{bitonicsequence}により、バイトニックシーケンスとは、データセットの先頭から緩やかに上昇し、中央でピークに達し、その後、データセットの末尾に近づくにつれて緩やかに下降するデータと説明できます。\\
+\begin{equation}\label{bitonicsequence}
+a_1 < a_2 < \cdots < a_k > a_{k+1} > \cdots > a_n
+\quad (1 \leq k < n)
+\end{equation}
+
+データせっと6の先頭付近と中間付近と末尾付近からサンプル要素をランダム的に取って、表\ref{tab:data6-sample}のようになります。
+\begin{table}[H]
+  \centering
+  \caption{バイトニックデータ（data6.dat）のサンプル値}
+  \begin{tabular}{|c|c|}
+    \hline
+    位置 & サンプル値（例） \\
+    \hline
+    先頭付近 & 17131, 41279, 23264, 44242, 2505, 6637, 5374, 8678, 6917\\
+    中間付近（最大付近） & 43248, 43247, 43247, 43246, 43244 \\
+    末尾付近 & 12, 12, 10, 10, 9, 9, 9, 9, 8, 8, 7, 5, 2 \\
+    \hline
+  \end{tabular}\label{tab:data6-sample}
+\end{table}
+
+データセット7はジグザグ配列になっています。数式\ref{tab:data7-sample}ジグザグ配列とは、データ全体を通して小さな数値と大きな数値が交互に現れるデータのことです。この場合、データセットはランダム化され、「小さい」部分と「大きい」部分が交互に現れます。データセットは、これらの大きな部分と小さな部分が、長さを変えながら交互に現れます。\\
+\begin{equation}\label{zigzagsequence}
+  a_1 < a_2 > a_3 < a_4 > a_5 < \cdots
+\end{equation}
+データせっと7の先頭付近と中間付近と末尾付近からサンプル要素をランダム的に取って、表\ref{tab:data6-sample}のようになります。
+\begin{table}[H]
+  \centering
+  \caption{ザクザクデータ（data7.dat）のサンプル値}
+  \begin{tabular}{|c|c|}
+    \hline
+    位置 & サンプル値（例） \\
+    \hline
+    先頭付近 & 2, 2, 2, 4, 7, 7, 7, 8, 13, 15 \\
+    中間付近 & 20778, 42992, 29869, 31747, 22945, 40054, 38945, 47166 \\
+    末尾付近 & 11990, 7746, 38998, 35057, 41719, 22808, 23284, 2525\\
+    \hline
+  \end{tabular}\label{tab:data7-sample}
+\end{table}
 \subsection{測定について}
+ソートアルゴリズムの実行時間を正確に測定するために、C言語の$time.c$ライブラリを利用します。$time.c$ライブラリには、プログラム実行後に経過したCPUティック数を測定する$clock()$関数が用意されています。図\ref{fig:clockcode}により、$clock()$関数を使用することで、ソート関数の実行前から完了後までのティック数を測定します。得られたティック数を、CPUが1ティックを実行するのにかかる時間で割ります。この値を計算すると、ソート関数の合計実行時間が算出されます。
+\begin{figure}[htbp]
+  \centering
+  \caption{プログラムの測定分の例}\label{fig:clockcode}
+  \begin{lstlisting}[basicstyle=\ttfamily\small]
+    start_time = clock();
+    shakerSort(fileLength, clonedArray);
+    end_time = clock();
+    elapsed_time = (double)(end_time - start_time)
+                    /CLOCKS_PER_SEC;
+  \end{lstlisting}
+\end{figure}
+\newpage
 \subsection{各アルゴリズムの説明}
+\textbf{バブルソート}
+\begin{enumerate}
+  \item リストの最初の位置から始める. 
+  \item 現在の数値と次の数値を比較する. 
+  \item 現在の数値が次の数値より大きければ, 入れ替える. 
+  \item 次の位置に進み, リストの末尾までステップ2〜3を繰り返す. 
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{bubble1.eps}
+    \caption{先頭から末尾まで数値を比較して, 交換する. }
+  \end{figure}
+  \item 1回の通過が終わったら, 最初の位置に戻って再び通過を行う. 
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{bubble2.eps}
+    \caption{通過後最初の位置に戻って, 再び通過}
+  \end{figure}
+  \item 通過中に1回も入れ替えがなければ, ソートは完了. 
+  \item 入れ替えがあった場合, ステップ1〜6を繰り返す. 
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{bubble3.eps}
+    \caption{通過後に入れ替えされた要素がないと終了}
+  \end{figure}
+\end{enumerate}
+\textbf{シェーカーソート}
+\begin{enumerate}
+  \item 配列の先頭から走査を開始する. 
+  \item 現在の要素と次の要素を比較し, 現在の要素の方が大きければ交換する. 
+  \item 配列の末尾まで進み, 走査中に交換が一度も行われなければソートを終了する. 
+  \item 次に逆方向（末尾から先頭）に走査する. 
+  \item 現在の要素と前の要素を比較し, 現在の要素の方が小さければ交換する. 
+  \item 先頭まで進み, 走査中に交換が一度も行われなければソートを終了する. 
+  \item 上記の操作を, 交換が行われる限り繰り返す. 各往復ごとに走査範囲を狭めることができる. 
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{shaker.eps}
+    \caption{シェーカーソートの進み方}
+  \end{figure}
+\end{enumerate}
+\newpage
+\textbf{挿入ソート}
+\begin{enumerate}
+  \item 最初の要素をソート済み部分とみなす. 
+  \item 次の要素を取り出して, ソート済み部分の各要素と比較する. 
+  \item ソート済み部分の中で, 自分より大きい要素を右にずらす. 適切な位置に挿入する. 
+  \item 適切位置がないとそのままで次の位置に進む
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{insertion1.eps}
+    \caption{第二位置からスタート. ソート済み要素より大きい数値を左にずらす.}
+  \end{figure}
+  \item リストの末尾までステップ2〜4を繰り返す. 
+  \item ソートされていない要素がないと終了
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{insertion2.eps}
+    \caption{ソート対象値がないとソート終了}
+  \end{figure}
+\end{enumerate}
+\textbf{バケットソート}
+\begin{enumerate}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{bucket1.eps}
+    \caption{ソート対象データ}
+  \end{figure}
+  \item 最初に、ソート対象の整数の範囲（例：0〜2.5）を確認し、その範囲に応じてバケットの数を決める（例：3の範囲ごとにバケットを作成するなど）。
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{bucket2.eps}
+    \caption{作成したバケット}
+  \end{figure}
+  \item 各要素をその値に基づいて対応するバケットに振り分ける。
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{bucket3.eps}
+    \caption{適当に作成されたバケットに要素を入れる。}
+  \end{figure}
+  \newpage
+  \item 各バケット内の要素をソートする（挿入ソートやバブルソートなど、単純なソートでOK）。
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{bucket4.eps}
+    \caption{各バケットの内容をソートし、連続}
+  \end{figure}
+  \item すべてのバケットを順番に結合して、最終的なソート済み配列を作る。
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{bucket5.eps}
+    \caption{ソートずみの配列}
+  \end{figure}
+\end{enumerate}
+\textbf{クイックソート}
+\begin{enumerate}
+  \item 初めに、配列から枢軸（ピボット）を1つ選びます。選び方には、先頭、中央、末尾などさまざまな方法があります。
+  \item 配列の各要素を枢軸と比較し、小さい要素は枢軸の左側、大きい要素は右側に移動させます（パーティショニング）。
+  \item 枢軸を基準にして、配列を左側部分（枢軸より小さい要素）と右側部分（枢軸より大きい要素）に分割します。
+  \item 左右それぞれの部分配列に対して、同様にステップ1～3を再帰的に繰り返します。
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{quick1.eps}
+    \caption{枢軸を選び、左側分と右側分に分割します。左と右配列を再帰的に処分}
+  \end{figure}
+  \item 各部分配列の要素数が1以下になると、すべての部分配列が整列され、結果的に全体がソートされます。
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{quick3.eps}
+    \caption{部分配列を整列され、結果的に全体がソートされます}
+  \end{figure}
+\end{enumerate}
+\textbf{カウントソート}
+
 \section{実験結果}
 \section{分析と議論}
 \section{まとめ}
 \section{発表について}
 
+\bibliographystyle{plain}
+\bibliography{references}
 \end{document}
