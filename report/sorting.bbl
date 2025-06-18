@@ -1,0 +1,26 @@
+\begin{thebibliography}{1}
+
+\bibitem{gfg:bucketsort2024}
+GeeksforGeeks.
+\newblock Bucket sort.
+\newblock GeeksforGeeks Data Structures \& Algorithms Tutorial, 2024.
+\newblock Last updated 23 Jul 2024.
+
+\bibitem{gfg:quicksort2025}
+GeeksforGeeks.
+\newblock Quick sort.
+\newblock GeeksforGeeks Data Structures \& Algorithms Tutorial, 2025.
+\newblock Last updated 17 Apr 2025.
+
+\bibitem{apple2023siliconcpuopt}
+Apple Inc.
+\newblock Apple silicon cpu optimization guide.
+\newblock Technical report, Apple Inc., 2023.
+\newblock Version 3.0.
+
+\bibitem{mittal2018branch}
+Sparsh Mittal.
+\newblock A survey of techniques for dynamic branch prediction.
+\newblock {\em arXiv preprint arXiv:1805.04389}, 2018.
+
+\end{thebibliography}

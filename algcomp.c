@@ -45,7 +45,7 @@ typedef struct
   char sortingMethod[20];
   int dataLength;
   double elapsed_time;
-  int memoryUsed;
+  double memoryUsed;
 
 } Result;
 int cmpFileName(const void *a, const void *b)
@@ -319,7 +319,7 @@ void printResultsTable(Result results[], int count)
   // Print each result row
   for (int i = 0; i < count; ++i)
   {
-    printf("| %-20s | %-14s | %-11d | %-13.6f | %-11.2d |\n",
+    printf("| %-20s | %-14s | %-11d | %-13.6f | %-11.2f |\n",
            results[i].fileName,
            results[i].sortingMethod,
            results[i].dataLength,
@@ -435,7 +435,7 @@ int main(int argc, char *argv[])
         case BUCKET:
           printf("Executing Bucket Sort on file %s\n", params.files[fileIndex]);
           start_time = clock();
-          bucketSort(findMaxValue(clonedArray, fileLength), /*bucket_count=*/5000, fileLength, clonedArray, &tempMemory);
+          bucketSort(findMaxValue(clonedArray, fileLength), /*bucket_count=*/100, fileLength, clonedArray, &tempMemory);
           end_time = clock();
           elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
           break;
@@ -502,6 +502,7 @@ int main(int argc, char *argv[])
         }
         elapsedTimeAverage += elapsed_time;
         usedMemoryAverage += (usedMemory + tempMemory);
+
         if (params.has_outFile)
         {
           printOut(alg, params.outFile, clonedArray, fileLength);
@@ -509,7 +510,7 @@ int main(int argc, char *argv[])
       }
       resultArray[resultIndex].dataLength = fileLength;
       resultArray[resultIndex].elapsed_time = elapsedTimeAverage / (params.has_repeat ? params.repeat : 1);
-      resultArray[resultIndex].memoryUsed = (int)(usedMemoryAverage / (params.has_repeat ? params.repeat : 1));
+      resultArray[resultIndex].memoryUsed = ((double)(usedMemoryAverage / (params.has_repeat ? params.repeat : 1)) / 1000);
       resultIndex++;
     }
 
