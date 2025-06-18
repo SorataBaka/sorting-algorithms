@@ -435,7 +435,7 @@ int main(int argc, char *argv[])
         case BUCKET:
           printf("Executing Bucket Sort on file %s\n", params.files[fileIndex]);
           start_time = clock();
-          bucketSort(findMaxValue(clonedArray, fileLength), /*bucket_count=*/100, fileLength, clonedArray, &tempMemory);
+          bucketSort(findMaxValue(clonedArray, fileLength), /*bucket_count=*/100000, fileLength, clonedArray, &tempMemory);
           end_time = clock();
           elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
           break;

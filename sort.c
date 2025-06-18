@@ -53,17 +53,24 @@ void bucketSort(int maxValue, int bucket_count, int arrayLength, int *array, lon
 }
 void bubbleSort(int arrayLength, int *array)
 {
-  for (int i = 0; i < arrayLength; i++)
+  for (int i = 0; i < arrayLength - 1; i++)
   {
-    for (int j = i + 1; j < arrayLength; j++)
+    int swapped = 0; // Reset swap flag for this pass
+
+    for (int j = 0; j < arrayLength - 1 - i; j++)
     {
-      if (array[j] < array[i])
+      if (array[j] > array[j + 1])
       {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+        // Swap adjacent elements
+        int temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+
+        swapped = 1; // Mark swap happened
       }
     }
+    if (!swapped)
+      break;
   }
 }
 void countSort(int maxValue, int arrayLength, int *array, long int *memoryUsed)
