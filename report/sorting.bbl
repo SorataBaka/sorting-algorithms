@@ -1,5 +1,11 @@
 \begin{thebibliography}{1}
 
+\bibitem{bingmann2020faster}
+Timo Bingmann, Jasper Marianczuk, and Peter Sanders.
+\newblock Engineering faster sorters for small sets of items.
+\newblock {\em Software: Practice and Experience}, 2020.
+\newblock Preprint available at arXiv.
+
 \bibitem{gfg:bucketsort2024}
 GeeksforGeeks.
 \newblock Bucket sort.

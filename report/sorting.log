@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.4.4)  19 JUN 2025 03:42
+This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.4.4)  19 JUN 2025 11:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -295,6 +295,8 @@ LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
 
 
 [1]
+
+[2]
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 46.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
@@ -376,50 +378,55 @@ File: ./assets/dataset1result.eps Graphic file (type eps)
  <./assets/dataset1result.eps>
 
 [18]
-
-[19]
 File: ./assets/dataset2result.eps Graphic file (type eps)
  <./assets/dataset2result.eps>
+
+[19]
+File: ./assets/dataset3result.eps Graphic file (type eps)
+ <./assets/dataset3result.eps>
 
 [20]
 
 [21]
-File: ./assets/dataset3result.eps Graphic file (type eps)
- <./assets/dataset3result.eps>
-
-[22]
-
-[23]
 File: ./assets/dataset4result.eps Graphic file (type eps)
  <./assets/dataset4result.eps>
 
-[24]
+[22]
 File: ./assets/dataset5result.eps Graphic file (type eps)
  <./assets/dataset5result.eps>
 
-[25]
+[23]
 File: ./assets/dataset6result.eps Graphic file (type eps)
  <./assets/dataset6result.eps>
 
-[26]
+[24]
 File: ./assets/dataset7result.eps Graphic file (type eps)
  <./assets/dataset7result.eps>
 
-[27]
+[25]
 File: ./assets/datalengthresult.eps Graphic file (type eps)
  <./assets/datalengthresult.eps>
 
-[28]
+[26]
 File: ./assets/bucketcounttime.eps Graphic file (type eps)
  <./assets/bucketcounttime.eps>
 File: ./assets/bucketcountmemory.eps Graphic file (type eps)
  <./assets/bucketcountmemory.eps>
 
+[27]
+File: ./assets/randomizeddatacompared.eps Graphic file (type eps)
+ <./assets/randomizeddatacompared.eps>
+
+[28]
+
 [29] (./sorting.bbl
+LaTeX Font Info:    Kanji font shape `JY1/gt/m/it' undefined
+(Font)              No change on input line 6.
+
 
 [30]
 LaTeX Font Info:    Kanji font shape `JY1/gt/m/it' undefined
-(Font)              No change on input line 30.
+(Font)              No change on input line 36.
 )
 
 [31] (./sorting.aux)
@@ -430,12 +437,12 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 8468 strings out of 473836
- 190739 string characters out of 5731190
- 552236 words of memory out of 5000000
- 31642 multiletter control sequences out of 15000+600000
+ 8480 strings out of 473836
+ 191126 string characters out of 5731190
+ 552312 words of memory out of 5000000
+ 31653 multiletter control sequences out of 15000+600000
  572715 words of font info for 91 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 73i,12n,80p,1076b,1242s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 73i,12n,80p,1348b,1242s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on sorting.dvi (33 pages, 90380 bytes).
+Output written on sorting.dvi (34 pages, 103472 bytes).
