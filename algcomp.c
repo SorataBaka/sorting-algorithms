@@ -424,7 +424,7 @@ int main(int argc, char *argv[])
         switch (alg)
         {
         case BUBBLE:
-          printf("Executing Bubble Sort on file %s\n", params.files[fileIndex]);
+          // printf("Executing Bubble Sort on file %s\n", params.files[fileIndex]);
           start_time = clock();
           bubbleSort(fileLength, clonedArray);
           end_time = clock();
@@ -433,15 +433,15 @@ int main(int argc, char *argv[])
           break;
 
         case BUCKET:
-          printf("Executing Bucket Sort on file %s\n", params.files[fileIndex]);
+          // printf("Executing Bucket Sort on file %s\n", params.files[fileIndex]);
           start_time = clock();
-          bucketSort(findMaxValue(clonedArray, fileLength), /*bucket_count=*/100000, fileLength, clonedArray, &tempMemory);
+          bucketSort(findMaxValue(clonedArray, fileLength), /*bucket_count=*/100, fileLength, clonedArray, &tempMemory);
           end_time = clock();
           elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
           break;
 
         case COUNT:
-          printf("Executing Count Sort on file %s\n", params.files[fileIndex]);
+          // printf("Executing Count Sort on file %s\n", params.files[fileIndex]);
           start_time = clock();
           countSort(findMaxValue(clonedArray, fileLength), fileLength, clonedArray, &tempMemory);
           end_time = clock();
@@ -449,7 +449,7 @@ int main(int argc, char *argv[])
           break;
 
         case INSERT:
-          printf("Executing Insert Sort on file %s\n", params.files[fileIndex]);
+          // printf("Executing Insert Sort on file %s\n", params.files[fileIndex]);
           start_time = clock();
           insertionSort(fileLength, clonedArray);
           end_time = clock();
@@ -457,7 +457,7 @@ int main(int argc, char *argv[])
           break;
 
         case QUICK:
-          printf("Executing Quick Sort on file %s\n", params.files[fileIndex]);
+          // printf("Executing Quick Sort on file %s\n", params.files[fileIndex]);
           start_time = clock();
           quickSort(clonedArray, 0, fileLength - 1, &tempMemory);
           end_time = clock();
@@ -465,7 +465,7 @@ int main(int argc, char *argv[])
           break;
 
         case SHAKER:
-          printf("Executing Shaker Sort on file %s\n", params.files[fileIndex]);
+          // printf("Executing Shaker Sort on file %s\n", params.files[fileIndex]);
           start_time = clock();
           shakerSort(fileLength, clonedArray);
           end_time = clock();

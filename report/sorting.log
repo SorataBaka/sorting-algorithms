@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.4.4)  19 JUN 2025 11:48
+This is e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.euc) (TeX Live 2025) (preloaded format=platex 2025.4.4)  19 JUN 2025 17:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -11,8 +11,8 @@ L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/platex/base/jarticle.cls
 Document Class: jarticle 2020/09/30 v1.8f Standard pLaTeX class
 \c@@paper=\count195
-(/usr/local/texlive/2025/texmf-dist/tex/platex/base/jsize12.clo
-File: jsize12.clo 2020/09/30 v1.8f Standard pLaTeX file (size option)
+(/usr/local/texlive/2025/texmf-dist/tex/platex/base/jsize11.clo
+File: jsize11.clo 2020/09/30 v1.8f Standard pLaTeX file (size option)
 )
 \c@part=\count196
 \c@section=\count197
@@ -244,7 +244,11 @@ File: l3backend-dvips.def 2024-05-08 L3 backend support: dvips
 \g__pdf_backend_annotation_int=\count311
 \g__pdf_backend_link_int=\count312
 \g__pdf_backend_link_sf_int=\count313
-) (./sorting.aux)
+) (./sorting.aux
+
+LaTeX Warning: Label `bucketcountresult' multiply defined.
+
+)
 \openout1 = `sorting.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
@@ -279,14 +283,14 @@ LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <25> not available
 [1
 
 ]
-LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <17.28> not available
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 33.
-LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <17.28> not available
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
 (Font)              Font shape `JY1/gt/m/n' tried instead on input line 33.
  (./sorting.toc
-LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10.95> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 1.
-LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10.95> not available
 (Font)              Font shape `JY1/gt/m/n' tried instead on input line 1.
 )
 \tf@toc=\write3
@@ -297,45 +301,43 @@ LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
 [1]
 
 [2]
-LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <14.4> not available
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
 (Font)              Font shape `JT1/gt/m/n' tried instead on input line 46.
-LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <14.4> not available
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
 (Font)              Font shape `JY1/gt/m/n' tried instead on input line 46.
 
 
 [1]
 
 [2]
-
-[3]
 File: ./assets/bigo.eps Graphic file (type eps)
  <./assets/bigo.eps>
+
+[3]
 
 [4]
 
 [5]
 
 [6]
-
-[7]
 File: ./assets/bubble1.eps Graphic file (type eps)
  <./assets/bubble1.eps>
 File: ./assets/bubble2.eps Graphic file (type eps)
  <./assets/bubble2.eps>
+
+[7]
 File: ./assets/bubble3.eps Graphic file (type eps)
  <./assets/bubble3.eps>
-
-[8]
 File: ./assets/shaker.eps Graphic file (type eps)
  <./assets/shaker.eps>
 
-[9]
+[8]
 File: ./assets/insertion1.eps Graphic file (type eps)
  <./assets/insertion1.eps>
 File: ./assets/insertion2.eps Graphic file (type eps)
  <./assets/insertion2.eps>
 
-[10]
+[9]
 File: ./assets/bucket1.eps Graphic file (type eps)
  <./assets/bucket1.eps>
 File: ./assets/bucket2.eps Graphic file (type eps)
@@ -343,106 +345,127 @@ File: ./assets/bucket2.eps Graphic file (type eps)
 File: ./assets/bucket3.eps Graphic file (type eps)
  <./assets/bucket3.eps>
 
-[11]
+[10]
 File: ./assets/bucket4.eps Graphic file (type eps)
  <./assets/bucket4.eps>
 File: ./assets/bucket5.eps Graphic file (type eps)
  <./assets/bucket5.eps>
-
-[12]
 File: ./assets/quick1.eps Graphic file (type eps)
  <./assets/quick1.eps>
+
+[11]
 File: ./assets/quick3.eps Graphic file (type eps)
  <./assets/quick3.eps>
-
-[13]
 File: ./assets/count1.eps Graphic file (type eps)
  <./assets/count1.eps>
+
+[12]
 File: ./assets/count4.eps Graphic file (type eps)
  <./assets/count4.eps>
 File: ./assets/count2.eps Graphic file (type eps)
  <./assets/count2.eps>
 
-[14]
+[13]
 File: ./assets/count3.eps Graphic file (type eps)
  <./assets/count3.eps>
 
-[15]
+[14]
 File: ./assets/countexecution.eps Graphic file (type eps)
  <./assets/countexecution.eps>
 
-[16]
+[15]
 
-[17]
+[16]
 File: ./assets/dataset1result.eps Graphic file (type eps)
  <./assets/dataset1result.eps>
 
-[18]
+[17]
 File: ./assets/dataset2result.eps Graphic file (type eps)
  <./assets/dataset2result.eps>
 
-[19]
+[18]
 File: ./assets/dataset3result.eps Graphic file (type eps)
  <./assets/dataset3result.eps>
 
-[20]
+[19]
 
-[21]
+[20]
 File: ./assets/dataset4result.eps Graphic file (type eps)
  <./assets/dataset4result.eps>
 
-[22]
+[21]
 File: ./assets/dataset5result.eps Graphic file (type eps)
  <./assets/dataset5result.eps>
 
-[23]
+[22]
 File: ./assets/dataset6result.eps Graphic file (type eps)
  <./assets/dataset6result.eps>
 
-[24]
+[23]
 File: ./assets/dataset7result.eps Graphic file (type eps)
  <./assets/dataset7result.eps>
 
-[25]
+[24]
 File: ./assets/datalengthresult.eps Graphic file (type eps)
  <./assets/datalengthresult.eps>
-
-[26]
 File: ./assets/bucketcounttime.eps Graphic file (type eps)
  <./assets/bucketcounttime.eps>
+
+[25]
 File: ./assets/bucketcountmemory.eps Graphic file (type eps)
  <./assets/bucketcountmemory.eps>
 
-[27]
+[26]
 File: ./assets/randomizeddatacompared.eps Graphic file (type eps)
  <./assets/randomizeddatacompared.eps>
 
+[27]
+
 [28]
 
-[29] (./sorting.bbl
+[29]
+
+[30]
+
+[31]
+
+[32]
+
+LaTeX Warning: Reference `tab:bubble-growth-rate' on page 33 undefined on input line 777.
+
+
+
+[33] (./sorting.bbl
 LaTeX Font Info:    Kanji font shape `JY1/gt/m/it' undefined
 (Font)              No change on input line 6.
 
 
-[30]
+[34]
 LaTeX Font Info:    Kanji font shape `JY1/gt/m/it' undefined
 (Font)              No change on input line 36.
 )
 
-[31] (./sorting.aux)
+[35] (./sorting.aux)
  ***********
 pLaTeX2e <2023-02-14>+1, based on
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 8480 strings out of 473836
- 191126 string characters out of 5731190
- 552312 words of memory out of 5000000
- 31653 multiletter control sequences out of 15000+600000
- 572715 words of font info for 91 fonts, out of 8000000 for 9000
+ 8488 strings out of 473836
+ 191347 string characters out of 5731190
+ 554471 words of memory out of 5000000
+ 31661 multiletter control sequences out of 15000+600000
+ 572594 words of font info for 90 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 73i,12n,80p,1348b,1242s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 73i,12n,80p,1408b,1240s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on sorting.dvi (34 pages, 103472 bytes).
+Output written on sorting.dvi (38 pages, 135512 bytes).
