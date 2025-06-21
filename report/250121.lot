@@ -1,0 +1,22 @@
+\contentsline {table}{\numberline {1}{\ignorespaces 各ソートアルゴリズムの計算量と特徴の比較}}{3}{}%
+\contentsline {table}{\numberline {2}{\ignorespaces 各データファイルの内容}}{5}{}%
+\contentsline {table}{\numberline {3}{\ignorespaces バイトニックデータ（data6.dat）のサンプル値}}{6}{}%
+\contentsline {table}{\numberline {4}{\ignorespaces ザクザクデータ（data7.dat）のサンプル値}}{6}{}%
+\contentsline {table}{\numberline {5}{\ignorespaces カウントソートをデータセット１に対する１０回繰り返した場合}}{15}{}%
+\contentsline {table}{\numberline {6}{\ignorespaces 各ソート手法の実行時間とメモリ使用量（データ長 100000, data1.dat）}}{17}{}%
+\contentsline {table}{\numberline {7}{\ignorespaces 各ソート手法の実行時間とメモリ使用量（データ長 100000, data2.dat）}}{18}{}%
+\contentsline {table}{\numberline {8}{\ignorespaces 各ソート手法の実行時間とメモリ使用量（データ長 100000, data3.dat）}}{19}{}%
+\contentsline {table}{\numberline {9}{\ignorespaces 各ソート手法の実行時間とメモリ使用量（データ長 100000, data4.dat）}}{20}{}%
+\contentsline {table}{\numberline {10}{\ignorespaces 各ソート手法の実行時間とメモリ使用量（データ長 100000, data5.dat）}}{21}{}%
+\contentsline {table}{\numberline {11}{\ignorespaces 各ソート手法の実行時間とメモリ使用量（データ長 100000, data6.dat）}}{22}{}%
+\contentsline {table}{\numberline {12}{\ignorespaces 各ソート手法の実行時間とメモリ使用量（データ長 100000, data7.dat）}}{23}{}%
+\contentsline {table}{\numberline {13}{\ignorespaces データ長の増加に伴うバブルソートの実行時間とメモリ使用量（data1.dat）}}{24}{}%
+\contentsline {table}{\numberline {14}{\ignorespaces バケット数ごとのバケットソートの実行時間とメモリ使用量（データ長 100000）}}{25}{}%
+\contentsline {table}{\numberline {15}{\ignorespaces 各データセットにおけるソート手法別の実行時間（データ長：100000）および平均時間}}{26}{}%
+\contentsline {table}{\numberline {16}{\ignorespaces 各データセットにおけるソート手法別のメモリ使用量（KB）および平均使用量（データ長：100000）}}{27}{}%
+\contentsline {table}{\numberline {17}{\ignorespaces プロフィリングの呼び出しスタック(サンプル数でソート)}}{29}{}%
+\contentsline {table}{\numberline {18}{\ignorespaces ソート時間の比較と変化率（単位：秒, 変化率はdata2からdata5への\%増減）}}{30}{}%
+\contentsline {table}{\numberline {19}{\ignorespaces ソート時間の比較と変化率（単位：秒, 変化率はdata2からdata6への\%増減）}}{31}{}%
+\contentsline {table}{\numberline {20}{\ignorespaces ソート時間の比較と変化率（単位：秒, 変化率はdata2からdata7への\%増減）}}{32}{}%
+\contentsline {table}{\numberline {21}{\ignorespaces バブルソートのデータ長による時間・メモリの変化率}}{32}{}%
+\contentsline {table}{\numberline {22}{\ignorespaces バケット数ごとのバケットソートの実行時間とメモリ使用量（データ長 100000）}}{33}{}%
